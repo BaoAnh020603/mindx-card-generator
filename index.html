@@ -16,7 +16,7 @@
   <!-- html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-  <!-- jsPDF: Xuất file PDF chất lượng cao -->
+  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <!-- Stylesheet -->
@@ -28,12 +28,12 @@
   <header class="app-header">
     <div style="max-width: 1360px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
       <div style="display: flex; align-items: center; gap: 14px;">
-        <div class="brand-badge">M</div>
+        <div class="brand-badge">🚀</div>
         <div>
-          <div style="font-weight: 800; font-size: 17px; color: #0f172a; line-height: 1.2;">
-            MINDX <span style="color: var(--primary-red); font-size: 14px; font-weight: 800;">CARD GENERATOR</span>
+          <div style="font-weight: 900; font-size: 18px; color: #0f172a; line-height: 1.2;">
+            MINDX <span style="background: linear-gradient(135deg, #e11d48, #ea580c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 15px; font-weight: 900;">CARD GENERATOR</span>
           </div>
-          <div style="font-size: 12px; color: #475569; font-weight: 500;">Công cụ tạo phiếu nhận xét học viên gửi Zalo</div>
+          <div style="font-size: 12px; color: #475569; font-weight: 600;">Phiếu nhận xét học viên sinh động & rực rỡ</div>
         </div>
       </div>
 
@@ -60,7 +60,7 @@
       <!-- Khối: Cấu hình chung -->
       <div style="margin-bottom: 22px;">
         <div class="form-group-title">
-          <i data-lucide="bookmark" style="width: 16px; height: 16px; color: var(--primary-red);"></i>
+          <i data-lucide="bookmark" style="width: 16px; height: 16px; color: #e11d48;"></i>
           Thông tin cơ sở & Sự kiện
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -78,7 +78,7 @@
       <!-- Khối: Thông tin học sinh & Ảnh -->
       <div style="margin-bottom: 22px;">
         <div class="form-group-title">
-          <i data-lucide="user" style="width: 16px; height: 16px; color: var(--primary-red);"></i>
+          <i data-lucide="user" style="width: 16px; height: 16px; color: #e11d48;"></i>
           Thông tin học viên
         </div>
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 14px;">
@@ -100,33 +100,32 @@
         </div>
       </div>
 
-      <!-- Khối: Điểm số & Xếp hạng (THANG ĐIỂM 5/5 & TỰ DO THAY ĐỔI TIÊU CHÍ) -->
-      <div style="margin-bottom: 22px; background: #fff1f2; border: 1.5px solid #fecdd3; border-radius: 14px; padding: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <div style="font-size: 12.5px; font-weight: 800; color: #9f1239; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
-            <i data-lucide="award" style="width: 16px; height: 16px;"></i>
-            Kết quả học tập (Thang điểm 5/5)
+      <!-- Khối: Điểm số & Xếp hạng (THANG ĐIỂM 5/5) -->
+      <div style="margin-bottom: 22px; background: linear-gradient(135deg, #fff1f2 0%, #fff7ed 100%); border: 1.5px solid #fed7aa; border-radius: 16px; padding: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div style="font-size: 13px; font-weight: 800; color: #c2410c; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="award" style="width: 17px; height: 17px;"></i>
+            Kết quả học tập (Thang 5/5)
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <label class="input-label" for="input-rank" style="margin: 0; color: #9f1239;">Xếp loại: *</label>
-            <select id="input-rank" style="font-weight: 800; color: var(--primary-red); border: 1.5px solid #fecdd3; border-radius: 8px; padding: 4px 10px; font-size: 13px; background: #fff; outline: none; cursor: pointer;" required>
+            <label class="input-label" for="input-rank" style="margin: 0; color: #c2410c;">Xếp loại: *</label>
+            <select id="input-rank" style="font-weight: 900; color: #e11d48; border: 2px solid #fda4af; border-radius: 8px; padding: 4px 12px; font-size: 13.5px; background: #fff; outline: none; cursor: pointer;" required>
               <option value="">-- Chọn --</option>
-              <option value="S">Hạng S</option>
-              <option value="A">Hạng A</option>
-              <option value="B">Hạng B</option>
-              <option value="C">Hạng C</option>
+              <option value="S">Hạng S ⭐</option>
+              <option value="A">Hạng A 🏆</option>
+              <option value="B">Hạng B 🎯</option>
+              <option value="C">Hạng C 🚀</option>
             </select>
           </div>
         </div>
 
-        <!-- Danh sách các ô điểm tự điền linh hoạt -->
         <div id="score-inputs-container">
           <!-- Render động từ JS -->
         </div>
 
-        <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-          <button type="button" id="btn-add-score" style="background: #ffffff; border: 1px solid #fecdd3; color: var(--primary-red); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-            <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i>
+        <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+          <button type="button" id="btn-add-score" style="background: #ffffff; border: 1.5px solid #fed7aa; color: #ea580c; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            <i data-lucide="plus-circle" style="width: 15px; height: 15px;"></i>
             Thêm tiêu chí điểm
           </button>
         </div>
@@ -135,14 +134,14 @@
       <!-- Khối: 3 Nhận xét chuyên môn -->
       <div style="margin-bottom: 24px;">
         <div class="form-group-title">
-          <i data-lucide="message-square" style="width: 16px; height: 16px; color: var(--primary-red);"></i>
+          <i data-lucide="message-square" style="width: 16px; height: 16px; color: #e11d48;"></i>
           Nhận xét của giáo viên
         </div>
 
         <!-- 1. Điểm mạnh -->
         <div style="margin-bottom: 16px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label class="input-label" style="color: #15803d; font-weight: 800; margin: 0;">1. Điểm mạnh của con *</label>
+            <label class="input-label" style="color: #047857; font-weight: 800; margin: 0;">1. Điểm mạnh của con *</label>
             <button type="button" class="btn-quick-sample" data-type="strength">+ Gợi ý mẫu</button>
           </div>
           <textarea id="input-strength" class="input-field" rows="2" placeholder="Nhập điểm mạnh của bé trong đợt vừa qua..." required style="line-height: 1.5;"></textarea>
@@ -170,24 +169,24 @@
       <!-- Nút bấm tạo phiếu -->
       <button type="submit" id="btn-generate" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 12px;">
         <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
-        <span>Tạo Phiếu Đánh Giá</span>
+        <span>Tạo Phiếu Đánh Giá Rực Rỡ</span>
       </button>
 
     </form>
 
-    <!-- CỘT 2: KHUNG THẺ XEM TRƯỚC -->
+    <!-- CỘT 2: KHUNG THẺ XEM TRƯỚC (MÀU MÈ HOA LÁ HẸ) -->
     <div class="preview-stage">
       
       <!-- Placeholder khi chưa bấm tạo -->
-      <div id="preview-placeholder" class="card-paper" style="border: 2px dashed #94a3b8; background: #ffffff; align-items: center; justify-content: center; text-align: center; color: #475569; padding: 40px 24px;">
-        <div style="width: 72px; height: 72px; border-radius: 24px; background: #f8fafc; border: 1.5px solid #e2e8f0; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #64748b;">
-          <i data-lucide="file-badge-2" style="width: 36px; height: 36px;"></i>
+      <div id="preview-placeholder" class="card-paper" style="border: 2.5px dashed #f472b6; background: #ffffff; align-items: center; justify-content: center; text-align: center; color: #475569; padding: 40px 24px;">
+        <div style="width: 76px; height: 76px; border-radius: 26px; background: linear-gradient(135deg, #fdf2f8, #fef2f2); border: 2px solid #fbcfe8; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 36px; box-shadow: 0 4px 10px rgba(244, 114, 182, 0.2);">
+          🎨
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0;">Chưa có dữ liệu phiếu</h3>
-        <p style="font-size: 13.5px; color: #475569; max-width: 300px; margin: 0 0 24px 0; line-height: 1.6; font-weight: 500;">
-          Vui lòng nhập đầy đủ thông tin bên form trái và bấm nút <strong style="color: var(--primary-red);">"Tạo Phiếu Đánh Giá"</strong> để xem thẻ kết quả.
+        <h3 style="font-size: 18px; font-weight: 900; color: #0f172a; margin: 0 0 8px 0;">Chưa có dữ liệu phiếu</h3>
+        <p style="font-size: 13.5px; color: #475569; max-width: 300px; margin: 0 0 24px 0; line-height: 1.6; font-weight: 600;">
+          Điền thông tin bên trái và bấm <strong style="color: #e11d48;">"Tạo Phiếu Đánh Giá"</strong> để tạo phiếu rực rỡ, bắt mắt cho bé!
         </p>
-        <span style="font-size: 12px; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 6px 16px; border-radius: 999px; color: #334155; font-weight: 700;">Chuẩn tỷ lệ Zalo 4:5 (Độ nét cao)</span>
+        <span style="font-size: 12px; background: linear-gradient(90deg, #fdf2f8, #fff7ed); border: 1.5px solid #fed7aa; padding: 6px 18px; border-radius: 999px; color: #ea580c; font-weight: 800;">✨ Tỷ lệ Zalo 4:5 • Độ phân giải cao ✨</span>
       </div>
 
       <!-- KHUNG THẺ KẾT QUẢ KHI ĐÃ TẠO -->
@@ -195,13 +194,13 @@
         
         <!-- Action bar trên đầu thẻ -->
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 14px;">
-          <div style="font-size: 13px; color: #15803d; font-weight: 700; display: flex; align-items: center; gap: 6px;">
-            <i data-lucide="check-circle" style="width: 17px; height: 17px;"></i>
-            Phiếu đã sẵn sàng gửi phụ huynh
+          <div style="font-size: 13px; color: #047857; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="check-circle" style="width: 17px; height: 17px; color: #10b981;"></i>
+            Phiếu đã sẵn sàng gửi phụ huynh!
           </div>
           <div style="display: flex; gap: 8px;">
-            <button id="btn-export-pdf" type="button" style="background: #ffffff; border: 1.5px solid #cbd5e1; color: #0f172a; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.15s;">
-              <i data-lucide="file-text" style="width: 15px; height: 15px; color: var(--primary-red);"></i>
+            <button id="btn-export-pdf" type="button" style="background: #ffffff; border: 1.5px solid #cbd5e1; color: #0f172a; padding: 8px 14px; border-radius: 10px; font-weight: 800; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+              <i data-lucide="file-text" style="width: 15px; height: 15px; color: #e11d48;"></i>
               Tải PDF
             </button>
             <button id="btn-export-image" class="btn-primary" style="padding: 8px 16px; font-size: 12.5px; border-radius: 10px;">
@@ -211,62 +210,73 @@
           </div>
         </div>
 
-        <!-- THẺ THÀNH PHẨM (NODE XUẤT ẢNH) -->
+        <!-- THẺ THÀNH PHẨM (NODE XUẤT ẢNH: MÀU MÈ HOA LÁ HẸ) -->
         <div id="card-render-node" class="card-paper">
           
-          <!-- 1. Header: Logo MindX & Đợt đánh giá -->
-          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 14px;">
+          <!-- Họa tiết trang trí nền rực rỡ -->
+          <div class="card-rainbow-top"></div>
+          <div class="card-blob-1"></div>
+          <div class="card-blob-2"></div>
+          <div class="card-blob-3"></div>
+
+          <!-- 1. Header: Logo & Đợt đánh giá rực rỡ -->
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px dashed #fecdd3; padding-bottom: 12px; position: relative; z-index: 10;">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="width: 42px; height: 42px; background: #D92534; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 22px;">
+              <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #e11d48, #ea580c); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 22px; box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);">
                 M
               </div>
               <div>
-                <div style="font-weight: 900; font-size: 15px; color: #D92534; line-height: 1.1; letter-spacing: 0.05em;">
+                <div style="font-weight: 900; font-size: 15px; color: #e11d48; line-height: 1.1; letter-spacing: 0.04em;">
                   MINDX <span style="font-size: 11.5px; font-weight: 800; color: #1e293b;">TECH & AI SCHOOL</span>
                 </div>
-                <div id="card-branch" style="font-size: 12px; font-weight: 700; color: #475569; margin-top: 2px;">MindX Thuận An</div>
+                <div id="card-branch" style="font-size: 12px; font-weight: 700; color: #64748b; margin-top: 2px;">MindX School</div>
               </div>
             </div>
 
-            <div style="background: #D92534; color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;">
+            <div style="background: linear-gradient(135deg, #f43f5e, #e11d48); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; box-shadow: 0 2px 6px rgba(244, 63, 94, 0.35);">
               <span id="card-event">CHECKPOINT 1</span>
             </div>
           </div>
 
-          <!-- 2. Học viên & Huy hiệu Rank -->
-          <div class="student-banner">
+          <!-- 2. Học viên & Huy hiệu Rank lấp lánh -->
+          <div class="student-banner-vibrant">
             <div style="display: flex; align-items: center; gap: 14px;">
-              <img id="card-avatar" src="" alt="Avatar" style="width: 64px; height: 64px; border-radius: 18px; object-fit: cover; border: 2.5px solid #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.08); background: #fff;">
+              <div style="position: relative;">
+                <img id="card-avatar" src="" alt="Avatar" style="width: 66px; height: 66px; border-radius: 20px; object-fit: cover; border: 3px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: #fff;">
+                <span style="position: absolute; -bottom: 4px; -right: 4px; font-size: 16px;">✨</span>
+              </div>
               <div>
-                <div style="font-size: 10.5px; font-weight: 800; color: #c2410c; text-transform: uppercase; letter-spacing: 0.08em;">PHIẾU HỌC BẠ ĐỊNH KỲ</div>
-                <div id="card-name" style="font-size: 18px; font-weight: 900; color: #0f172a; margin-top: 2px; line-height: 1.2;">---</div>
-                <div id="card-class" style="font-size: 12.5px; font-weight: 600; color: #475569; margin-top: 2px;">Lớp: ---</div>
+                <div style="font-size: 10.5px; font-weight: 900; color: #c2410c; text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 4px;">
+                  🌟 PHIẾU HỌC BẠ ĐỊNH KỲ
+                </div>
+                <div id="card-name" style="font-size: 19px; font-weight: 900; color: #0f172a; margin-top: 1px; line-height: 1.2;">---</div>
+                <div id="card-class" style="font-size: 12.5px; font-weight: 700; color: #475569; margin-top: 2px;">Lớp: ---</div>
               </div>
             </div>
 
-            <div style="background: #ffffff; border: 1.5px solid #fed7aa; border-radius: 14px; padding: 8px 16px; text-align: center; min-width: 72px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-              <div style="font-size: 10px; font-weight: 800; color: #9a3412; text-transform: uppercase;">Xếp loại</div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 2px; margin-top: 2px;">
-                <span id="card-rank" style="font-size: 24px; font-weight: 900; color: #D92534; line-height: 1;">A</span>
-                <span style="font-size: 13px; color: #f59e0b;">★</span>
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%); border: 2px solid #fed7aa; border-radius: 16px; padding: 8px 16px; text-align: center; min-width: 76px; box-shadow: 0 4px 10px rgba(251, 146, 60, 0.15);">
+              <div style="font-size: 10px; font-weight: 900; color: #9a3412; text-transform: uppercase; letter-spacing: 0.05em;">Xếp loại</div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 3px; margin-top: 2px;">
+                <span id="card-rank" style="font-size: 26px; font-weight: 900; color: #e11d48; line-height: 1;">A</span>
+                <span style="font-size: 15px; color: #f59e0b;">⭐</span>
               </div>
             </div>
           </div>
 
-          <!-- 3. Bảng điểm thành phần (Render linh hoạt số lượng và tên tiêu chí, cố định thang /5) -->
-          <div id="card-scores-container" style="display: grid; gap: 10px;">
+          <!-- 3. Bảng điểm thành phần đa sắc màu Pastel (5/5) -->
+          <div id="card-scores-container" style="display: grid; gap: 10px; position: relative; z-index: 10;">
             <!-- Render từ JS -->
           </div>
 
-          <!-- 4. Khối 3 Nhận xét chuyên môn -->
-          <div style="display: flex; flex-direction: column; gap: 9px;">
+          <!-- 4. Khối 3 Nhận xét chuyên môn nhiều màu -->
+          <div style="display: flex; flex-direction: column; gap: 9px; position: relative; z-index: 10;">
             <!-- Điểm mạnh -->
             <div class="feedback-box strength">
               <div class="feedback-icon">
-                <i data-lucide="check" style="width: 15px; height: 15px; stroke-width: 3;"></i>
+                🎯
               </div>
               <div style="flex: 1;">
-                <div class="feedback-title">Điểm mạnh của con</div>
+                <div class="feedback-title">Điểm mạnh của con 👏</div>
                 <p id="card-strength" class="feedback-desc"></p>
               </div>
             </div>
@@ -274,10 +284,10 @@
             <!-- Cần cải thiện -->
             <div class="feedback-box improve">
               <div class="feedback-icon">
-                <i data-lucide="arrow-up-right" style="width: 15px; height: 15px; stroke-width: 3;"></i>
+                🚀
               </div>
               <div style="flex: 1;">
-                <div class="feedback-title">Cần lưu ý / Cải thiện</div>
+                <div class="feedback-title">Cần lưu ý / Cải thiện 💡</div>
                 <p id="card-improve" class="feedback-desc"></p>
               </div>
             </div>
@@ -285,22 +295,22 @@
             <!-- Lời khuyên -->
             <div class="feedback-box advice">
               <div class="feedback-icon">
-                <i data-lucide="compass" style="width: 15px; height: 15px; stroke-width: 3;"></i>
+                🌱
               </div>
               <div style="flex: 1;">
-                <div class="feedback-title">Lời khuyên từ giáo viên</div>
+                <div class="feedback-title">Lời khuyên từ giáo viên 💌</div>
                 <p id="card-advice" class="feedback-desc"></p>
               </div>
             </div>
           </div>
 
-          <!-- 5. Footer: Lời động viên thương hiệu -->
-          <div style="border-top: 1.5px solid #f1f5f9; padding-top: 12px; display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 14px;">🌱</span>
-              <span style="font-size: 11.5px; font-style: italic; color: #475569; font-weight: 600;">"MindX luôn đồng hành cùng hành trình sáng tạo của con!"</span>
+          <!-- 5. Footer: Lời động viên & thương hiệu -->
+          <div style="border-top: 1.5px dashed #fecdd3; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 10;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 16px;">🎈</span>
+              <span style="font-size: 11.5px; font-style: italic; color: #475569; font-weight: 700;">"MindX luôn đồng hành cùng hành trình sáng tạo của con!"</span>
             </div>
-            <span style="font-size: 11px; font-weight: 800; color: #D92534; letter-spacing: 0.05em;">mindx.edu.vn</span>
+            <span style="font-size: 11px; font-weight: 900; background: linear-gradient(135deg, #e11d48, #ea580c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.05em;">mindx.edu.vn</span>
           </div>
 
         </div>

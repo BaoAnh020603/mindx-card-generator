@@ -24,7 +24,7 @@ function renderScoreInputs() {
       </div>
       <div style="display: flex; align-items: center; gap: 4px;">
         <input type="number" step="0.5" min="0" max="5" class="input-field score-val-input" data-index="${index}" value="${item.score}" placeholder="Điểm" style="text-align: center; font-weight: 800; font-size: 14px;">
-        <span style="font-size: 13px; font-weight: 800; color: #9f1239; white-space: nowrap;">/ 5</span>
+        <span style="font-size: 13px; font-weight: 800; color: #e11d48; white-space: nowrap;">/ 5</span>
       </div>
       <div>
         ${currentState.scores.length > 1 ? `
@@ -38,7 +38,6 @@ function renderScoreInputs() {
 
   if (window.lucide) window.lucide.createIcons();
 
-  // Gắn sự kiện thay đổi cho các input điểm
   container.querySelectorAll('.score-name-input').forEach(input => {
     input.addEventListener('input', (e) => {
       const idx = e.target.dataset.index;
@@ -86,7 +85,6 @@ function attachEventListeners() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Thu thập dữ liệu từ Form
     currentState.event = document.getElementById('input-event').value;
     currentState.branch = document.getElementById('input-branch').value;
     currentState.studentName = document.getElementById('input-name').value;
@@ -97,10 +95,8 @@ function attachEventListeners() {
     currentState.improveText = document.getElementById('input-improve').value;
     currentState.adviceText = document.getElementById('input-advice').value;
 
-    // Render sang Card
     renderCardPreview();
 
-    // Hiện thẻ kết quả, ẩn placeholder
     isGenerated = true;
     document.getElementById('preview-placeholder').style.display = 'none';
     const previewWrapper = document.getElementById('preview-wrapper');
@@ -170,23 +166,33 @@ function attachEventListeners() {
   }
 }
 
-// Render riêng khối điểm trên Thẻ xem trước (Tự động thích ứng số lượng tiêu chí)
+// Bảng màu rực rỡ phong phú (Pastel gradient) cho từng ô điểm
+const metricColorThemes = [
+  { bg: 'linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%)', border: '#f0abfc', tagColor: '#a21caf', scoreColor: '#86198f' },
+  { bg: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)', border: '#93c5fd', tagColor: '#1d4ed8', scoreColor: '#1e40af' },
+  { bg: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)', border: '#6ee7b7', tagColor: '#047857', scoreColor: '#065f46' },
+  { bg: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', border: '#fdba74', tagColor: '#c2410c', scoreColor: '#9a3412' },
+  { bg: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)', border: '#fda4af', tagColor: '#be123c', scoreColor: '#9f1239' }
+];
+
 function renderCardScores() {
   const container = document.getElementById('card-scores-container');
   if (!container) return;
 
   const count = currentState.scores.length;
-  // Cột tự động chia theo số lượng tiêu chí
   container.style.gridTemplateColumns = `repeat(${count > 0 ? count : 1}, minmax(0, 1fr))`;
 
-  container.innerHTML = currentState.scores.map(item => `
-    <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 8px 6px; text-align: center;">
-      <div style="font-size: 11px; font-weight: 700; color: #475569; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${item.name}">${item.name || 'Tiêu chí'}</div>
-      <div style="font-size: 16px; font-weight: 900; color: #0f172a; margin-top: 2px;">
-        <span>${item.score || '-'}</span><span style="font-size: 11px; font-weight: 700; color: #D92534;">/5</span>
+  container.innerHTML = currentState.scores.map((item, idx) => {
+    const theme = metricColorThemes[idx % metricColorThemes.length];
+    return `
+      <div style="background: ${theme.bg}; border: 2px solid ${theme.border}; border-radius: 16px; padding: 8px 6px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+        <div style="font-size: 11px; font-weight: 800; color: ${theme.tagColor}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${item.name}">${item.name || 'Tiêu chí'}</div>
+        <div style="font-size: 17px; font-weight: 900; color: ${theme.scoreColor}; margin-top: 2px; display: flex; align-items: baseline; justify-content: center; gap: 2px;">
+          <span>${item.score || '-'}</span><span style="font-size: 11px; font-weight: 800; color: #f43f5e;">/5</span>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function renderCardPreview() {
@@ -199,7 +205,6 @@ function renderCardPreview() {
 
   document.getElementById('card-rank').innerText = currentState.rank || '-';
 
-  // Render danh sách điểm động theo thang /5
   renderCardScores();
 
   document.getElementById('card-strength').innerText = currentState.strengthText;
@@ -220,7 +225,7 @@ async function exportImage() {
       scale: 2.5,
       useCORS: true,
       backgroundColor: '#ffffff',
-      borderRadius: 24,
+      borderRadius: 28,
       logging: false
     });
 
@@ -247,7 +252,6 @@ async function exportImage() {
   }
 }
 
-// Xuất file PDF sắc nét chuẩn trang A4/tỷ lệ phiếu
 async function exportPDF() {
   const cardElement = document.getElementById('card-render-node');
   const btnExportPdf = document.getElementById('btn-export-pdf');
@@ -257,19 +261,17 @@ async function exportPDF() {
   btnExportPdf.disabled = true;
 
   try {
-    // Chụp lại thẻ bằng html2canvas với độ phân giải cao
     const canvas = await window.html2canvas(cardElement, {
-      scale: 3, // Siêu nét để in ấn hoặc đọc PDF
+      scale: 3,
       useCORS: true,
       backgroundColor: '#ffffff',
-      borderRadius: 24,
+      borderRadius: 28,
       logging: false
     });
 
     const imgData = canvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
 
-    // Khởi tạo trang PDF theo kích thước phiếu (480 x 640pt)
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
