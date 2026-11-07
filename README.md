@@ -96,3 +96,4 @@ No complex build setups, Node.js installations, or bundlers are required.
 ## 📄 License
 
 Distributed under the MIT License. Developed for educational automation and operational excellence at **MindX Tech & AI School**.
+

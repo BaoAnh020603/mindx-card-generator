@@ -148,14 +148,22 @@ function attachEventListeners() {
     });
   }
 
+  // Nút xuất Ảnh
   const btnExport = document.getElementById('btn-export-image');
   if (btnExport) {
     btnExport.addEventListener('click', exportImage);
   }
 
+  // Nút xuất PDF
   const btnExportPdf = document.getElementById('btn-export-pdf');
   if (btnExportPdf) {
     btnExportPdf.addEventListener('click', exportPDF);
+  }
+
+  // Nút tải cả Combo (Ảnh + PDF) cùng lúc
+  const btnExportAll = document.getElementById('btn-export-all');
+  if (btnExportAll) {
+    btnExportAll.addEventListener('click', exportBundle);
   }
 }
 
@@ -289,5 +297,64 @@ async function exportPDF() {
     btnExportPdf.innerHTML = oldText;
     btnExportPdf.disabled = false;
     if (window.lucide) window.lucide.createIcons();
+  }
+}
+
+// Hàm tải trọn bộ cả file Ảnh và file PDF chỉ trong 1 click
+async function exportBundle() {
+  const cardElement = document.getElementById('card-render-node');
+  const btnExportAll = document.getElementById('btn-export-all');
+
+  const oldText = btnExportAll.innerHTML;
+  btnExportAll.innerHTML = `<span>Đang đóng gói Bộ (Ảnh + PDF)...</span>`;
+  btnExportAll.disabled = true;
+
+  try {
+    // 1. Chụp Canvas 1 lần duy nhất với scale 3.0x nét căng
+    const canvas = await window.html2canvas(cardElement, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      borderRadius: 28,
+      logging: false
+    });
+
+    const safeName = (currentState.studentName || 'Hoc_Vien')
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9]/g, "_");
+      
+    const safeEvent = (currentState.event || 'Checkpoint').replace(/[^a-zA-Z0-9]/g, "_");
+
+    // 2. Tải file Ảnh PNG
+    const imgData = canvas.toDataURL('image/png');
+    const imageAnchor = document.createElement('a');
+    imageAnchor.download = `Phieu_${safeName}_${safeEvent}.png`;
+    imageAnchor.href = imgData;
+    imageAnchor.click();
+
+    // 3. Tải file PDF (tạo trực tiếp từ imgData của canvas, chạy tức thì)
+    setTimeout(() => {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [480, 640]
+      });
+
+      pdf.addImage(imgData, 'PNG', 0, 0, 480, 640);
+      pdf.save(`Phieu_${safeName}_${safeEvent}.pdf`);
+    }, 400);
+
+  } catch (error) {
+    console.error('Lỗi khi tải trọn bộ:', error);
+    alert('Có lỗi khi tải: ' + error.message);
+  } finally {
+    setTimeout(() => {
+      btnExportAll.innerHTML = oldText;
+      btnExportAll.disabled = false;
+      if (window.lucide) window.lucide.createIcons();
+    }, 800);
   }
 }
