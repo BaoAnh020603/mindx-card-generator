@@ -16,6 +16,9 @@
   <!-- html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+  <!-- jsPDF: Xuất file PDF chất lượng cao -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="./css/styles.css">
 </head>
@@ -196,10 +199,16 @@
             <i data-lucide="check-circle" style="width: 17px; height: 17px;"></i>
             Phiếu đã sẵn sàng gửi phụ huynh
           </div>
-          <button id="btn-export-image" class="btn-primary" style="padding: 8px 18px; font-size: 13px; border-radius: 10px;">
-            <i data-lucide="download" style="width: 15px; height: 15px;"></i>
-            Tải Ảnh Gửi Zalo
-          </button>
+          <div style="display: flex; gap: 8px;">
+            <button id="btn-export-pdf" type="button" style="background: #ffffff; border: 1.5px solid #cbd5e1; color: #0f172a; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.15s;">
+              <i data-lucide="file-text" style="width: 15px; height: 15px; color: var(--primary-red);"></i>
+              Tải PDF
+            </button>
+            <button id="btn-export-image" class="btn-primary" style="padding: 8px 16px; font-size: 12.5px; border-radius: 10px;">
+              <i data-lucide="image" style="width: 15px; height: 15px;"></i>
+              Tải Ảnh Zalo
+            </button>
+          </div>
         </div>
 
         <!-- THẺ THÀNH PHẨM (NODE XUẤT ẢNH) -->

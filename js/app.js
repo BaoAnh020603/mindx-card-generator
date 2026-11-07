@@ -162,6 +162,12 @@ function attachEventListeners() {
   if (btnExport) {
     btnExport.addEventListener('click', exportImage);
   }
+
+  // Nút xuất PDF
+  const btnExportPdf = document.getElementById('btn-export-pdf');
+  if (btnExportPdf) {
+    btnExportPdf.addEventListener('click', exportPDF);
+  }
 }
 
 // Render riêng khối điểm trên Thẻ xem trước (Tự động thích ứng số lượng tiêu chí)
@@ -237,6 +243,56 @@ async function exportImage() {
   } finally {
     btnExport.innerHTML = oldText;
     btnExport.disabled = false;
+    if (window.lucide) window.lucide.createIcons();
+  }
+}
+
+// Xuất file PDF sắc nét chuẩn trang A4/tỷ lệ phiếu
+async function exportPDF() {
+  const cardElement = document.getElementById('card-render-node');
+  const btnExportPdf = document.getElementById('btn-export-pdf');
+
+  const oldText = btnExportPdf.innerHTML;
+  btnExportPdf.innerHTML = `<span>Đang tạo PDF...</span>`;
+  btnExportPdf.disabled = true;
+
+  try {
+    // Chụp lại thẻ bằng html2canvas với độ phân giải cao
+    const canvas = await window.html2canvas(cardElement, {
+      scale: 3, // Siêu nét để in ấn hoặc đọc PDF
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      borderRadius: 24,
+      logging: false
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+
+    // Khởi tạo trang PDF theo kích thước phiếu (480 x 640pt)
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: [480, 640]
+    });
+
+    pdf.addImage(imgData, 'PNG', 0, 0, 480, 640);
+
+    const safeName = (currentState.studentName || 'Hoc_Vien')
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9]/g, "_");
+      
+    const safeEvent = (currentState.event || 'Danh_Gia').replace(/[^a-zA-Z0-9]/g, "_");
+
+    pdf.save(`Phieu_${safeName}_${safeEvent}.pdf`);
+  } catch (error) {
+    console.error('Lỗi khi xuất PDF:', error);
+    alert('Không thể xuất PDF: ' + error.message);
+  } finally {
+    btnExportPdf.innerHTML = oldText;
+    btnExportPdf.disabled = false;
     if (window.lucide) window.lucide.createIcons();
   }
 }
