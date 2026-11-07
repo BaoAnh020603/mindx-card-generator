@@ -3,10 +3,10 @@
   --primary-red: #D92534;
   --primary-red-hover: #b81c29;
   --primary-red-light: #fff1f2;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --border-color: #cbd5e1;
-  --border-light: #e2e8f0;
+  --text-main: #090d16;
+  --text-muted: #1e293b;
+  --border-color: #94a3b8;
+  --border-light: #cbd5e1;
 }
 
 * {
@@ -15,7 +15,7 @@
 
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  background-color: #f8fafc;
+  background-color: #f1f5f9;
   color: var(--text-main);
   margin: 0;
   padding: 0;
@@ -26,26 +26,26 @@ body {
 /* App Header */
 .app-header {
   background: #ffffff;
-  border-bottom: 1px solid var(--border-light);
-  padding: 12px 24px;
+  border-bottom: 2px solid #e2e8f0;
+  padding: 14px 24px;
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .brand-badge {
-  background: linear-gradient(135deg, #FF416C, #FF4B2B);
+  background: linear-gradient(135deg, #e11d48, #ea580c);
   color: #ffffff;
   font-weight: 900;
   border-radius: 12px;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 4px 10px rgba(255, 75, 43, 0.3);
+  font-size: 22px;
+  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
 }
 
 /* Custom Scrollbar */
@@ -56,7 +56,7 @@ body {
   background: transparent;
 }
 .form-scroll::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #94a3b8;
   border-radius: 10px;
 }
 
@@ -64,17 +64,17 @@ body {
 .form-card {
   background: #ffffff;
   border-radius: 20px;
-  border: 1px solid var(--border-light);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 4px 10px -2px rgba(15, 23, 42, 0.08);
   padding: 28px;
 }
 
 .form-group-title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #334155;
+  letter-spacing: 0.05em;
+  color: #0f172a;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -83,46 +83,52 @@ body {
 
 .input-field {
   width: 100%;
-  border: 1.5px solid #cbd5e1;
+  border: 1.5px solid #94a3b8;
   border-radius: 10px;
   padding: 10px 14px;
-  font-size: 13.5px;
+  font-size: 14px;
   font-family: inherit;
-  color: #0f172a;
-  font-weight: 500;
+  color: #090d16;
+  font-weight: 600;
   background-color: #ffffff;
   transition: all 0.2s ease-in-out;
   outline: none;
 }
 
+.input-field::placeholder {
+  color: #64748b;
+  font-weight: 500;
+}
+
 .input-field:focus {
-  border-color: var(--primary-red);
-  box-shadow: 0 0 0 3.5px rgba(217, 37, 52, 0.12);
+  border-color: #e11d48;
+  box-shadow: 0 0 0 3.5px rgba(225, 29, 72, 0.15);
 }
 
 .input-label {
   display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: #1e293b;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
   margin-bottom: 6px;
 }
 
 /* Suggestion Button */
 .btn-quick-sample {
-  font-size: 11.5px;
-  color: #c026d3;
-  background: #fae8ff;
-  border: 1px solid #f0abfc;
-  padding: 3px 10px;
-  border-radius: 6px;
+  font-size: 12px;
+  color: #86198f;
+  background: #fdf4ff;
+  border: 1.5px solid #f0abfc;
+  padding: 4px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 800;
   transition: all 0.15s;
 }
 
 .btn-quick-sample:hover {
-  background: #f5d0fe;
+  background: #fae8ff;
+  border-color: #d946ef;
 }
 
 /* Buttons */
@@ -132,23 +138,23 @@ body {
   padding: 12px 24px;
   border-radius: 12px;
   font-weight: 800;
-  font-size: 14.5px;
+  font-size: 15px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
   transition: all 0.2s;
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.35);
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.4);
 }
 
 /* ==============================================================
-   CARD PREVIEW (MÀU MÈ HOA LÁ HẸ - TƯƠI VUI HỌC VIỆN SÁNG TẠO)
+   CARD PREVIEW (CHỮ ĐẬM NÉT 100%, ĐỘ TƯƠNG PHẢN TỐI ĐA, DỄ ĐỌC)
    ============================================================== */
 .preview-stage {
   display: flex;
@@ -163,49 +169,15 @@ body {
   height: 640px;
   background: #ffffff;
   border-radius: 28px;
-  box-shadow: 0 15px 35px -5px rgba(225, 29, 72, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.06);
-  border: 3.5px solid #ffccd5;
+  box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.15), 0 8px 16px -6px rgba(15, 23, 42, 0.08);
+  border: 3.5px solid #fda4af;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 22px;
+  padding: 24px;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-}
-
-/* Hoa lá hẹ & Bong bóng trang trí nền thẻ */
-.card-blob-1 {
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(255, 225, 137, 0.5) 0%, rgba(255, 107, 107, 0.1) 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.card-blob-2 {
-  position: absolute;
-  bottom: 80px;
-  left: -50px;
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(167, 243, 208, 0.45) 0%, rgba(59, 130, 246, 0.05) 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.card-blob-3 {
-  position: absolute;
-  top: 40%;
-  right: -30px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(244, 114, 182, 0.3) 0%, rgba(192, 132, 252, 0.05) 70%);
-  border-radius: 50%;
-  pointer-events: none;
 }
 
 /* Viền cầu vồng trên đỉnh */
@@ -218,79 +190,77 @@ body {
   background: linear-gradient(90deg, #ff007a, #ff7b00, #ffea00, #00e5ff, #8a2be2);
 }
 
-/* Student Banner: Rực rỡ gradient */
+/* Student Banner */
 .student-banner-vibrant {
   background: linear-gradient(135deg, #fff1f2 0%, #ffedd5 50%, #fef9c3 100%);
-  border: 2px solid #fed7aa;
+  border: 2px solid #fdba74;
   border-radius: 20px;
-  padding: 12px 16px;
+  padding: 13px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 3px 6px rgba(251, 146, 60, 0.1);
+  box-shadow: 0 3px 8px rgba(251, 146, 60, 0.15);
   position: relative;
   z-index: 10;
 }
 
-/* Feedback blocks nhiều màu rực rỡ */
+/* Feedback blocks nhiều màu nhưng chữ siêu đậm, tương phản cao */
 .feedback-box {
   border-radius: 14px;
-  padding: 10px 14px;
+  padding: 11px 15px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
   position: relative;
   z-index: 10;
 }
 
 .feedback-box.strength {
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  border: 1.5px solid #6ee7b7;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
 }
 
 .feedback-box.improve {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-  border: 1.5px solid #fcd34d;
+  background: #fffbeb;
+  border: 2px solid #fde047;
 }
 
 .feedback-box.advice {
-  background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
-  border: 1.5px solid #7dd3fc;
+  background: #f0f9ff;
+  border: 2px solid #7dd3fc;
 }
 
 .feedback-icon {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  font-size: 16px;
+  background: #ffffff;
 }
-
-.strength .feedback-icon { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
-.improve .feedback-icon { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
-.advice .feedback-icon { background: linear-gradient(135deg, #06b6d4, #0284c7); color: #fff; }
 
 .feedback-title {
-  font-size: 12px;
-  font-weight: 800;
+  font-size: 12.5px;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 2px;
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
 }
 
-.strength .feedback-title { color: #047857; }
-.improve .feedback-title { color: #b45309; }
-.advice .feedback-title { color: #0369a1; }
+.strength .feedback-title { color: #14532d; }
+.improve .feedback-title { color: #78350f; }
+.advice .feedback-title { color: #0c4a6e; }
 
+/* Nội dung chữ nhận xét: Màu đen sẫm, độ đậm 700 để 100% người đọc rõ mồn một */
 .feedback-desc {
-  font-size: 12.5px;
-  font-weight: 600;
-  line-height: 1.45;
-  color: #1e293b;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #090d16;
   margin: 0;
 }
