@@ -63,16 +63,11 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
             <label class="input-label" for="input-event">Đợt đánh giá *</label>
-            <select id="input-event" class="input-field" required>
-              <option value="CHECKPOINT 1">CHECKPOINT 1</option>
-              <option value="CHECKPOINT 2">CHECKPOINT 2</option>
-              <option value="DEMO DAY">DEMO DAY</option>
-              <option value="ĐÁNH GIÁ THÁNG">ĐÁNH GIÁ THÁNG</option>
-            </select>
+            <input type="text" id="input-event" class="input-field" placeholder="Nhập đợt đánh giá (VD: CHECKPOINT 1)..." required>
           </div>
           <div>
             <label class="input-label" for="input-branch">Cơ sở MindX *</label>
-            <input type="text" id="input-branch" class="input-field" placeholder="VD: MindX Thuận An" value="MindX Thuận An" required>
+            <input type="text" id="input-branch" class="input-field" placeholder="Nhập cơ sở (VD: MindX Thuận An)..." required>
           </div>
         </div>
       </div>
@@ -124,15 +119,15 @@
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
           <div>
             <label class="input-label" style="font-size: 12px; color: #475569;">Điểm Logic</label>
-            <input type="text" id="input-logic" class="input-field" placeholder="VD: 9.0" style="text-align: center; font-weight: 800;">
+            <input type="text" id="input-logic" class="input-field" style="text-align: center; font-weight: 800;">
           </div>
           <div>
             <label class="input-label" style="font-size: 12px; color: #475569;">Thực hành</label>
-            <input type="text" id="input-practice" class="input-field" placeholder="VD: 9.5" style="text-align: center; font-weight: 800;">
+            <input type="text" id="input-practice" class="input-field" style="text-align: center; font-weight: 800;">
           </div>
           <div>
             <label class="input-label" style="font-size: 12px; color: #475569;">Chuyên cần</label>
-            <input type="text" id="input-attendance" class="input-field" placeholder="VD: 10" style="text-align: center; font-weight: 800;">
+            <input type="text" id="input-attendance" class="input-field" style="text-align: center; font-weight: 800;">
           </div>
         </div>
       </div>
