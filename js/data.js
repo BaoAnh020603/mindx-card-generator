@@ -24,7 +24,7 @@ export const commentTemplates = {
 // Avatar mặc định trung tính khi chưa upload ảnh bé
 export const DEFAULT_AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
 
-// Dữ liệu ban đầu để trống hoàn toàn (tự nhập toàn bộ)
+// Dữ liệu ban đầu để trống hoàn toàn, linh hoạt tiêu chí điểm theo thang /5
 export const initialCardData = {
   event: "",
   branch: "",
@@ -32,9 +32,11 @@ export const initialCardData = {
   classCode: "",
   avatarUrl: DEFAULT_AVATAR_PLACEHOLDER,
   rank: "",
-  scoreLogic: "",
-  scorePractice: "",
-  scoreAttendance: "",
+  scores: [
+    { name: "Điểm năng lực", score: "5" },
+    { name: "Điểm thực hành", score: "5" },
+    { name: "Điểm trắc nghiệm", score: "5" }
+  ],
   strengthText: "",
   improveText: "",
   adviceText: ""

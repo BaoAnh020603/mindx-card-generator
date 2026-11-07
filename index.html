@@ -43,7 +43,7 @@
     </div>
   </header>
 
-  <!-- MAIN APP CONTAINER (CĂN GIỮA, CÂN XỨNG HOÀN HẢO) -->
+  <!-- MAIN APP CONTAINER -->
   <div style="max-width: 1360px; margin: 28px auto; padding: 0 24px; display: grid; grid-template-columns: minmax(460px, 1fr) minmax(500px, 1fr); gap: 40px; align-items: start;">
     
     <!-- CỘT 1: FORM NHẬP LIỆU -->
@@ -63,7 +63,7 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
             <label class="input-label" for="input-event">Đợt đánh giá *</label>
-            <input type="text" id="input-event" class="input-field" placeholder="Nhập đợt đánh giá (VD: CHECKPOINT 1)..." required>
+            <input type="text" id="input-event" class="input-field" placeholder="Nhập đợt (VD: CHECKPOINT 1)..." required>
           </div>
           <div>
             <label class="input-label" for="input-branch">Cơ sở MindX *</label>
@@ -97,12 +97,12 @@
         </div>
       </div>
 
-      <!-- Khối: Điểm số & Xếp hạng -->
+      <!-- Khối: Điểm số & Xếp hạng (THANG ĐIỂM 5/5 & TỰ DO THAY ĐỔI TIÊU CHÍ) -->
       <div style="margin-bottom: 22px; background: #fff1f2; border: 1.5px solid #fecdd3; border-radius: 14px; padding: 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <div style="font-size: 12.5px; font-weight: 800; color: #9f1239; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
             <i data-lucide="award" style="width: 16px; height: 16px;"></i>
-            Kết quả học tập
+            Kết quả học tập (Thang điểm 5/5)
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <label class="input-label" for="input-rank" style="margin: 0; color: #9f1239;">Xếp loại: *</label>
@@ -116,19 +116,16 @@
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-          <div>
-            <label class="input-label" style="font-size: 12px; color: #475569;">Điểm Logic</label>
-            <input type="text" id="input-logic" class="input-field" style="text-align: center; font-weight: 800;">
-          </div>
-          <div>
-            <label class="input-label" style="font-size: 12px; color: #475569;">Thực hành</label>
-            <input type="text" id="input-practice" class="input-field" style="text-align: center; font-weight: 800;">
-          </div>
-          <div>
-            <label class="input-label" style="font-size: 12px; color: #475569;">Chuyên cần</label>
-            <input type="text" id="input-attendance" class="input-field" style="text-align: center; font-weight: 800;">
-          </div>
+        <!-- Danh sách các ô điểm tự điền linh hoạt -->
+        <div id="score-inputs-container">
+          <!-- Render động từ JS -->
+        </div>
+
+        <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+          <button type="button" id="btn-add-score" style="background: #ffffff; border: 1px solid #fecdd3; color: var(--primary-red); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+            <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i>
+            Thêm tiêu chí điểm
+          </button>
         </div>
       </div>
 
@@ -175,7 +172,7 @@
 
     </form>
 
-    <!-- CỘT 2: KHUNG THẺ XEM TRƯỚC (CĂN GIỮA, CỰC KỲ CÂN XỨNG) -->
+    <!-- CỘT 2: KHUNG THẺ XEM TRƯỚC -->
     <div class="preview-stage">
       
       <!-- Placeholder khi chưa bấm tạo -->
@@ -247,26 +244,9 @@
             </div>
           </div>
 
-          <!-- 3. Bảng điểm thành phần -->
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 6px; text-align: center;">
-              <div style="font-size: 11px; font-weight: 700; color: #475569;">Tư duy Logic</div>
-              <div style="font-size: 15px; font-weight: 900; color: #0f172a; margin-top: 3px;">
-                <span id="card-score-logic">-</span><span style="font-size: 11px; font-weight: 600; color: #64748b;">/10</span>
-              </div>
-            </div>
-            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 6px; text-align: center;">
-              <div style="font-size: 11px; font-weight: 700; color: #475569;">Thực hành</div>
-              <div style="font-size: 15px; font-weight: 900; color: #0f172a; margin-top: 3px;">
-                <span id="card-score-practice">-</span><span style="font-size: 11px; font-weight: 600; color: #64748b;">/10</span>
-              </div>
-            </div>
-            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 6px; text-align: center;">
-              <div style="font-size: 11px; font-weight: 700; color: #475569;">Chuyên cần</div>
-              <div style="font-size: 15px; font-weight: 900; color: #0f172a; margin-top: 3px;">
-                <span id="card-score-attendance">-</span><span style="font-size: 11px; font-weight: 600; color: #64748b;">/10</span>
-              </div>
-            </div>
+          <!-- 3. Bảng điểm thành phần (Render linh hoạt số lượng và tên tiêu chí, cố định thang /5) -->
+          <div id="card-scores-container" style="display: grid; gap: 10px;">
+            <!-- Render từ JS -->
           </div>
 
           <!-- 4. Khối 3 Nhận xét chuyên môn -->
