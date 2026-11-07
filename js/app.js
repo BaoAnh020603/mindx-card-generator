@@ -1,97 +1,54 @@
-import { commentTemplates, initialCardData } from './data.js';
+import { commentTemplates, initialCardData, DEFAULT_AVATAR_PLACEHOLDER } from './data.js';
 
-// Quản lý state của phiếu hiện tại
 let currentState = { ...initialCardData };
+let isGenerated = false;
 
-// Khởi chạy khi load xong trang
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Khởi tạo biểu tượng Lucide
   if (window.lucide) {
     window.lucide.createIcons();
   }
 
-  // 2. Gán dữ liệu mặc định vào Form
-  populateFormWithState();
-
-  // 3. Render cập nhật sang thẻ xem trước
-  renderCardPreview();
-
-  // 4. Lắng nghe các sự kiện thay đổi dữ liệu trên Form
   attachEventListeners();
 });
 
-// Điền state vào form
-function populateFormWithState() {
-  document.getElementById('input-event').value = currentState.event;
-  document.getElementById('input-branch').value = currentState.branch;
-  document.getElementById('input-name').value = currentState.studentName;
-  document.getElementById('input-class').value = currentState.classCode;
-  document.getElementById('input-rank').value = currentState.rank;
-  
-  document.getElementById('input-logic').value = currentState.scoreLogic;
-  document.getElementById('input-practice').value = currentState.scorePractice;
-  document.getElementById('input-attendance').value = currentState.scoreAttendance;
-
-  document.getElementById('input-strength').value = currentState.strengthText;
-  document.getElementById('input-improve').value = currentState.improveText;
-  document.getElementById('input-advice').value = currentState.adviceText;
-}
-
-// Cập nhật thẻ trực tiếp (Live update DOM)
-function renderCardPreview() {
-  // Header
-  document.getElementById('card-event').innerText = currentState.event;
-  document.getElementById('card-branch').innerText = currentState.branch || 'MindX School';
-
-  // Thông tin học sinh
-  document.getElementById('card-name').innerText = currentState.studentName || 'Họ và tên học viên';
-  document.getElementById('card-class').innerText = `Lớp: ${currentState.classCode || '---'}`;
-  document.getElementById('card-avatar').src = currentState.avatarUrl;
-
-  // Xếp hạng & Điểm
-  document.getElementById('card-rank').innerText = currentState.rank;
-  document.getElementById('card-score-logic').innerText = currentState.scoreLogic;
-  document.getElementById('card-score-practice').innerText = currentState.scorePractice;
-  document.getElementById('card-score-attendance').innerText = currentState.scoreAttendance;
-
-  // 3 Khối nhận xét
-  document.getElementById('card-strength').innerText = currentState.strengthText;
-  document.getElementById('card-improve').innerText = currentState.improveText;
-  document.getElementById('card-advice').innerText = currentState.adviceText;
-}
-
-// Lắng nghe sự kiện
 function attachEventListeners() {
-  // Input text & select
-  const inputs = [
-    { id: 'input-event', key: 'event' },
-    { id: 'input-branch', key: 'branch' },
-    { id: 'input-name', key: 'studentName' },
-    { id: 'input-class', key: 'classCode' },
-    { id: 'input-rank', key: 'rank' },
-    { id: 'input-logic', key: 'scoreLogic' },
-    { id: 'input-practice', key: 'scorePractice' },
-    { id: 'input-attendance', key: 'scoreAttendance' },
-    { id: 'input-strength', key: 'strengthText' },
-    { id: 'input-improve', key: 'improveText' },
-    { id: 'input-advice', key: 'adviceText' }
-  ];
+  const form = document.getElementById('card-form');
 
-  inputs.forEach(({ id, key }) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('input', (e) => {
-        currentState[key] = e.target.value;
-        renderCardPreview();
-      });
-      el.addEventListener('change', (e) => {
-        currentState[key] = e.target.value;
-        renderCardPreview();
-      });
-    }
+  // Xử lý khi bấm nút "Tạo Phiếu Đánh Giá"
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Thu thập dữ liệu từ Form
+    currentState.event = document.getElementById('input-event').value;
+    currentState.branch = document.getElementById('input-branch').value;
+    currentState.studentName = document.getElementById('input-name').value;
+    currentState.classCode = document.getElementById('input-class').value;
+    currentState.rank = document.getElementById('input-rank').value;
+
+    currentState.scoreLogic = document.getElementById('input-logic').value || '-';
+    currentState.scorePractice = document.getElementById('input-practice').value || '-';
+    currentState.scoreAttendance = document.getElementById('input-attendance').value || '-';
+
+    currentState.strengthText = document.getElementById('input-strength').value;
+    currentState.improveText = document.getElementById('input-improve').value;
+    currentState.adviceText = document.getElementById('input-advice').value;
+
+    // Render sang Card
+    renderCardPreview();
+
+    // Hiện thẻ kết quả, ẩn placeholder
+    isGenerated = true;
+    document.getElementById('preview-placeholder').style.display = 'none';
+    const previewWrapper = document.getElementById('preview-wrapper');
+    previewWrapper.style.display = 'flex';
+
+    if (window.lucide) window.lucide.createIcons();
+
+    // Tự cuộn mượt đến khung thẻ nếu trên màn hình nhỏ
+    previewWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 
-  // Xử lý upload avatar
+  // Upload Avatar
   const avatarInput = document.getElementById('input-avatar-file');
   if (avatarInput) {
     avatarInput.addEventListener('change', (e) => {
@@ -100,64 +57,78 @@ function attachEventListeners() {
         const reader = new FileReader();
         reader.onload = (uploadEvent) => {
           currentState.avatarUrl = uploadEvent.target.result;
-          renderCardPreview();
+          if (isGenerated) {
+            document.getElementById('card-avatar').src = currentState.avatarUrl;
+          }
         };
         reader.readAsDataURL(file);
       }
     });
   }
 
-  // Nút đặt lại avatar mặc định
-  const btnResetAvatar = document.getElementById('btn-reset-avatar');
-  if (btnResetAvatar) {
-    btnResetAvatar.addEventListener('click', () => {
-      currentState.avatarUrl = initialCardData.avatarUrl;
-      avatarInput.value = '';
-      renderCardPreview();
-    });
-  }
-
-  // Nút chọn câu mẫu nhanh
+  // Nút chọn câu mẫu
   document.querySelectorAll('.btn-quick-sample').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const type = e.currentTarget.dataset.type;
       const list = commentTemplates[type];
       if (list && list.length > 0) {
         const randomComment = list[Math.floor(Math.random() * list.length)];
-        if (type === 'strength') {
-          currentState.strengthText = randomComment;
-          document.getElementById('input-strength').value = randomComment;
-        } else if (type === 'improve') {
-          currentState.improveText = randomComment;
-          document.getElementById('input-improve').value = randomComment;
-        } else if (type === 'advice') {
-          currentState.adviceText = randomComment;
-          document.getElementById('input-advice').value = randomComment;
-        }
-        renderCardPreview();
+        if (type === 'strength') document.getElementById('input-strength').value = randomComment;
+        if (type === 'improve') document.getElementById('input-improve').value = randomComment;
+        if (type === 'advice') document.getElementById('input-advice').value = randomComment;
       }
     });
   });
 
-  // Nút tải ảnh PNG
+  // Nút Làm mới Form
+  const btnReset = document.getElementById('btn-reset-form');
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      form.reset();
+      currentState = { ...initialCardData };
+      isGenerated = false;
+      document.getElementById('preview-placeholder').style.display = 'flex';
+      document.getElementById('preview-wrapper').style.display = 'none';
+      if (window.lucide) window.lucide.createIcons();
+    });
+  }
+
+  // Nút xuất ảnh
   const btnExport = document.getElementById('btn-export-image');
   if (btnExport) {
     btnExport.addEventListener('click', exportImage);
   }
 }
 
-// Hàm chụp ảnh phiếu nét cao tải về
+function renderCardPreview() {
+  document.getElementById('card-event').innerText = currentState.event;
+  document.getElementById('card-branch').innerText = currentState.branch || 'MindX School';
+
+  document.getElementById('card-name').innerText = currentState.studentName || 'Họ và tên học viên';
+  document.getElementById('card-class').innerText = `Lớp: ${currentState.classCode || '---'}`;
+  document.getElementById('card-avatar').src = currentState.avatarUrl;
+
+  document.getElementById('card-rank').innerText = currentState.rank || '-';
+  document.getElementById('card-score-logic').innerText = currentState.scoreLogic;
+  document.getElementById('card-score-practice').innerText = currentState.scorePractice;
+  document.getElementById('card-score-attendance').innerText = currentState.scoreAttendance;
+
+  document.getElementById('card-strength').innerText = currentState.strengthText;
+  document.getElementById('card-improve').innerText = currentState.improveText;
+  document.getElementById('card-advice').innerText = currentState.adviceText;
+}
+
 async function exportImage() {
   const cardElement = document.getElementById('card-render-node');
   const btnExport = document.getElementById('btn-export-image');
 
   const oldText = btnExport.innerHTML;
-  btnExport.innerHTML = `<span>Đang tạo ảnh nét cao...</span>`;
+  btnExport.innerHTML = `<span>Đang tạo ảnh...</span>`;
   btnExport.disabled = true;
 
   try {
     const canvas = await window.html2canvas(cardElement, {
-      scale: 2.5, // Độ phân giải cao cho di động (1200 x 1600px)
+      scale: 2.5,
       useCORS: true,
       backgroundColor: '#ffffff',
       borderRadius: 24,
@@ -186,4 +157,3 @@ async function exportImage() {
     if (window.lucide) window.lucide.createIcons();
   }
 }
-

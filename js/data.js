@@ -21,19 +21,21 @@ export const commentTemplates = {
   ]
 };
 
-// Dữ liệu mặc định ban đầu
+// Avatar mặc định trung tính khi chưa upload ảnh bé
+export const DEFAULT_AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
+
+// Dữ liệu ban đầu để trống (Không tự điền sẵn)
 export const initialCardData = {
   event: "CHECKPOINT 1",
   branch: "MindX Thuận An",
-  studentName: "Bùi Sỹ Minh",
-  classCode: "Scratch K08",
-  avatarUrl: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&auto=format&fit=crop&q=80",
-  rank: "A",
-  scoreLogic: "9.0",
-  scorePractice: "9.5",
-  scoreAttendance: "10",
-  strengthText: "Con tiếp thu bài nhanh, tư duy logic tốt và hoàn thành bài kiểm tra đúng hạn.",
-  improveText: "Con cần đọc kỹ yêu cầu đề bài trước khi bắt tay vào ghép khối lệnh.",
-  adviceText: "Dành 15-20 phút thực hành thêm tại nhà mỗi tuần để rèn phản xạ tư duy."
+  studentName: "",
+  classCode: "",
+  avatarUrl: DEFAULT_AVATAR_PLACEHOLDER,
+  rank: "",
+  scoreLogic: "",
+  scorePractice: "",
+  scoreAttendance: "",
+  strengthText: "",
+  improveText: "",
+  adviceText: ""
 };
-

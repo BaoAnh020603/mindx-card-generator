@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MindX Student Card Generator</title>
 
-  <!-- Google Font: Plus Jakarta Sans (Gọn gàng, thanh lịch, chuẩn học đường) -->
+  <!-- Google Font: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   <!-- html2canvas: Thư viện xuất ảnh chất lượng cao -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-  <!-- External Stylesheet tách riêng -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -34,22 +34,24 @@
         </div>
       </div>
 
-      <button id="btn-export-image" class="btn-primary">
-        <i data-lucide="download" style="width: 16px; height: 16px;"></i>
-        <span>Tải Ảnh Gửi Zalo</span>
-      </button>
+      <div style="display: flex; gap: 10px;">
+        <button id="btn-reset-form" type="button" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 9px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+          <i data-lucide="rotate-ccw" style="width: 15px; height: 15px;"></i>
+          Làm mới
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- MAIN APP CONTAINER (2 CỘT TỶ LỆ CÂN XỨNG) -->
+  <!-- MAIN APP CONTAINER -->
   <div style="max-width: 1280px; margin: 24px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;">
     
-    <!-- CỘT 1: FORM NHẬP LIỆU (Thân thiện, rõ ràng) -->
-    <div class="form-card form-scroll" style="max-height: calc(100vh - 120px); overflow-y: auto;">
+    <!-- CỘT 1: FORM NHẬP LIỆU -->
+    <form id="card-form" class="form-card form-scroll" style="max-height: calc(100vh - 120px); overflow-y: auto;">
       
       <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 14px; margin-bottom: 20px;">
-        <h2 style="font-size: 16px; font-weight: 700; margin: 0; color: #0f172a;">Thông tin phiếu đánh giá</h2>
-        <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">Nhập thông tin bên dưới, thẻ bên phải sẽ tự động hiển thị trực tiếp.</p>
+        <h2 style="font-size: 16px; font-weight: 700; margin: 0; color: #0f172a;">Nhập thông tin phiếu học bạ</h2>
+        <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">Điền thông tin và bấm "Xem trước & Tạo thẻ" để tạo phiếu kết quả hoàn chỉnh.</p>
       </div>
 
       <!-- Khối: Cấu hình chung -->
@@ -60,8 +62,8 @@
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <div>
-            <label class="input-label" for="input-event">Đợt đánh giá</label>
-            <select id="input-event" class="input-field">
+            <label class="input-label" for="input-event">Đợt đánh giá *</label>
+            <select id="input-event" class="input-field" required>
               <option value="CHECKPOINT 1">CHECKPOINT 1</option>
               <option value="CHECKPOINT 2">CHECKPOINT 2</option>
               <option value="DEMO DAY">DEMO DAY</option>
@@ -69,8 +71,8 @@
             </select>
           </div>
           <div>
-            <label class="input-label" for="input-branch">Cơ sở MindX</label>
-            <input type="text" id="input-branch" class="input-field" placeholder="VD: MindX Thuận An">
+            <label class="input-label" for="input-branch">Cơ sở MindX *</label>
+            <input type="text" id="input-branch" class="input-field" placeholder="VD: MindX Thuận An" value="MindX Thuận An" required>
           </div>
         </div>
       </div>
@@ -84,19 +86,18 @@
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 12px;">
           <div>
             <label class="input-label" for="input-name">Họ và tên học viên *</label>
-            <input type="text" id="input-name" class="input-field" style="font-weight: 600;" placeholder="Nhập tên học sinh">
+            <input type="text" id="input-name" class="input-field" style="font-weight: 600;" placeholder="Nhập họ tên bé..." required>
           </div>
           <div>
-            <label class="input-label" for="input-class">Lớp học</label>
-            <input type="text" id="input-class" class="input-field" placeholder="VD: Scratch K08">
+            <label class="input-label" for="input-class">Lớp học *</label>
+            <input type="text" id="input-class" class="input-field" placeholder="VD: Scratch K08" required>
           </div>
         </div>
 
         <div>
-          <label class="input-label">Ảnh học viên</label>
+          <label class="input-label">Ảnh học viên (tùy chọn)</label>
           <div style="display: flex; align-items: center; gap: 12px;">
             <input type="file" id="input-avatar-file" accept="image/*" style="font-size: 12px; color: #64748b;">
-            <button id="btn-reset-avatar" type="button" style="background: none; border: none; font-size: 11px; color: #94a3b8; cursor: pointer; text-decoration: underline;">Ảnh mẫu</button>
           </div>
         </div>
       </div>
@@ -109,8 +110,9 @@
             Kết quả học tập
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
-            <label class="input-label" for="input-rank" style="margin: 0;">Xếp loại:</label>
-            <select id="input-rank" style="font-weight: 800; color: var(--primary-red); border: 1px solid #fecdd3; border-radius: 6px; padding: 2px 8px; font-size: 12px; background: #fff;">
+            <label class="input-label" for="input-rank" style="margin: 0;">Xếp loại: *</label>
+            <select id="input-rank" style="font-weight: 800; color: var(--primary-red); border: 1px solid #fecdd3; border-radius: 6px; padding: 2px 8px; font-size: 12px; background: #fff;" required>
+              <option value="">-- Chọn --</option>
               <option value="S">Hạng S</option>
               <option value="A">Hạng A</option>
               <option value="B">Hạng B</option>
@@ -122,21 +124,21 @@
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
           <div>
             <label class="input-label" style="font-size: 11px;">Điểm Logic</label>
-            <input type="text" id="input-logic" class="input-field" style="text-align: center; font-weight: 700;">
+            <input type="text" id="input-logic" class="input-field" placeholder="VD: 9.0" style="text-align: center; font-weight: 700;">
           </div>
           <div>
             <label class="input-label" style="font-size: 11px;">Thực hành</label>
-            <input type="text" id="input-practice" class="input-field" style="text-align: center; font-weight: 700;">
+            <input type="text" id="input-practice" class="input-field" placeholder="VD: 9.5" style="text-align: center; font-weight: 700;">
           </div>
           <div>
             <label class="input-label" style="font-size: 11px;">Chuyên cần</label>
-            <input type="text" id="input-attendance" class="input-field" style="text-align: center; font-weight: 700;">
+            <input type="text" id="input-attendance" class="input-field" placeholder="VD: 10" style="text-align: center; font-weight: 700;">
           </div>
         </div>
       </div>
 
       <!-- Khối: 3 Nhận xét chuyên môn -->
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 20px;">
         <div class="form-group-title">
           <i data-lucide="message-square" style="width: 14px; height: 14px;"></i>
           Nhận xét của giáo viên
@@ -145,156 +147,180 @@
         <!-- 1. Điểm mạnh -->
         <div style="margin-bottom: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <label class="input-label" style="color: #15803d; font-weight: 700; margin: 0;">1. Điểm mạnh của con</label>
-            <button type="button" class="btn-quick-sample" data-type="strength">+ Gợi ý câu mẫu</button>
+            <label class="input-label" style="color: #15803d; font-weight: 700; margin: 0;">1. Điểm mạnh của con *</label>
+            <button type="button" class="btn-quick-sample" data-type="strength">+ Gợi ý mẫu</button>
           </div>
-          <textarea id="input-strength" class="input-field" rows="2" style="line-height: 1.45;"></textarea>
+          <textarea id="input-strength" class="input-field" rows="2" placeholder="Nhập điểm mạnh của bé trong đợt vừa qua..." required style="line-height: 1.45;"></textarea>
         </div>
 
         <!-- 2. Điểm cần cải thiện -->
         <div style="margin-bottom: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <label class="input-label" style="color: #b45309; font-weight: 700; margin: 0;">2. Điểm cần lưu ý / Cải thiện</label>
-            <button type="button" class="btn-quick-sample" data-type="improve">+ Gợi ý câu mẫu</button>
+            <label class="input-label" style="color: #b45309; font-weight: 700; margin: 0;">2. Cần lưu ý / Cải thiện *</label>
+            <button type="button" class="btn-quick-sample" data-type="improve">+ Gợi ý mẫu</button>
           </div>
-          <textarea id="input-improve" class="input-field" rows="2" style="line-height: 1.45;"></textarea>
+          <textarea id="input-improve" class="input-field" rows="2" placeholder="Nhập những điểm bé cần rèn luyện thêm..." required style="line-height: 1.45;"></textarea>
         </div>
 
         <!-- 3. Lời khuyên -->
         <div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <label class="input-label" style="color: #0369a1; font-weight: 700; margin: 0;">3. Lời khuyên / Định hướng</label>
-            <button type="button" class="btn-quick-sample" data-type="advice">+ Gợi ý câu mẫu</button>
+            <label class="input-label" style="color: #0369a1; font-weight: 700; margin: 0;">3. Lời khuyên / Định hướng *</label>
+            <button type="button" class="btn-quick-sample" data-type="advice">+ Gợi ý mẫu</button>
           </div>
-          <textarea id="input-advice" class="input-field" rows="2" style="line-height: 1.45;"></textarea>
+          <textarea id="input-advice" class="input-field" rows="2" placeholder="Lời khuyên, động viên gửi tới bé và phụ huynh..." required style="line-height: 1.45;"></textarea>
         </div>
       </div>
 
-    </div>
+      <!-- Nút bấm tạo phiếu -->
+      <button type="submit" id="btn-generate" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 15px;">
+        <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+        <span>Tạo Phiếu Đánh Giá</span>
+      </button>
 
-    <!-- CỘT 2: KHUNG THẺ XEM TRƯỚC (Clean, Chuẩn nhận diện, Tỷ lệ 4:5) -->
+    </form>
+
+    <!-- CỘT 2: KHUNG THẺ XEM TRƯỚC -->
     <div class="preview-stage">
-      <div style="font-size: 12px; color: #94a3b8; font-weight: 500; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-        <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
-        Xem trước hình ảnh (Tỷ lệ 4:5 chuẩn gửi Zalo điện thoại)
+      
+      <!-- Placeholder khi chưa nhập xong -->
+      <div id="preview-placeholder" class="card-paper" style="border: 2px dashed #cbd5e1; background: #ffffff; align-items: center; justify-content: center; text-align: center; color: #94a3b8; padding: 40px 20px;">
+        <div style="width: 64px; height: 64px; border-radius: 20px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: #cbd5e1;">
+          <i data-lucide="file-badge-2" style="width: 32px; height: 32px;"></i>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 700; color: #475569; margin: 0 0 6px 0;">Chưa có dữ liệu phiếu</h3>
+        <p style="font-size: 13px; color: #94a3b8; max-width: 280px; margin: 0 0 20px 0; line-height: 1.5;">Vui lòng nhập đầy đủ thông tin bên form trái và bấm nút <strong>"Tạo Phiếu Đánh Giá"</strong> để xem thẻ.</p>
+        <span style="font-size: 11px; background: #f1f5f9; padding: 6px 12px; border-radius: 999px; color: #64748b; font-weight: 600;">Chuẩn tỷ lệ Zalo 4:5</span>
       </div>
 
-      <!-- KHUNG THẺ RENDER RA ẢNH (NODE XUẤT ẢNH) -->
-      <div id="card-render-node" class="card-paper">
-        
-        <!-- 1. Header: Logo MindX & Đợt đánh giá -->
-        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 38px; height: 38px; background: #D92534; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px;">
-              M
-            </div>
-            <div>
-              <div style="font-weight: 800; font-size: 14px; color: #D92534; line-height: 1.1; letter-spacing: 0.05em;">
-                MINDX <span style="font-size: 11px; font-weight: 700; color: #334155;">TECH & AI SCHOOL</span>
+      <!-- KHUNG THẺ KẾT QUẢ (Ẩn mặc định cho đến khi bấm Tạo) -->
+      <div id="preview-wrapper" style="display: none; flex-direction: column; align-items: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 480px; margin-bottom: 12px;">
+          <div style="font-size: 12px; color: #16a34a; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="check-circle" style="width: 15px; height: 15px;"></i>
+            Phiếu đã sẵn sàng xuất ảnh
+          </div>
+          <button id="btn-export-image" class="btn-primary" style="padding: 6px 14px; font-size: 12px;">
+            <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+            Tải Ảnh Gửi Zalo
+          </button>
+        </div>
+
+        <div id="card-render-node" class="card-paper">
+          
+          <!-- 1. Header: Logo MindX & Đợt đánh giá -->
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 38px; height: 38px; background: #D92534; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px;">
+                M
               </div>
-              <div id="card-branch" style="font-size: 11px; font-weight: 600; color: #64748b; margin-top: 2px;">MindX Thuận An</div>
+              <div>
+                <div style="font-weight: 800; font-size: 14px; color: #D92534; line-height: 1.1; letter-spacing: 0.05em;">
+                  MINDX <span style="font-size: 11px; font-weight: 700; color: #334155;">TECH & AI SCHOOL</span>
+                </div>
+                <div id="card-branch" style="font-size: 11px; font-weight: 600; color: #64748b; margin-top: 2px;">MindX Thuận An</div>
+              </div>
+            </div>
+
+            <div style="background: #D92534; color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">
+              <span id="card-event">CHECKPOINT 1</span>
             </div>
           </div>
 
-          <div style="background: #D92534; color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">
-            <span id="card-event">CHECKPOINT 1</span>
+          <!-- 2. Học viên & Huy hiệu Rank -->
+          <div class="student-banner">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <img id="card-avatar" src="" alt="Avatar" style="width: 60px; height: 60px; border-radius: 16px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.08); background: #fff;">
+              <div>
+                <div style="font-size: 10px; font-weight: 700; color: #ea580c; text-transform: uppercase; letter-spacing: 0.08em;">PHIẾU HỌC BẠ ĐỊNH KỲ</div>
+                <div id="card-name" style="font-size: 17px; font-weight: 800; color: #0f172a; margin-top: 2px; line-height: 1.2;">---</div>
+                <div id="card-class" style="font-size: 12px; font-weight: 500; color: #64748b; margin-top: 2px;">Lớp: ---</div>
+              </div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 8px 14px; text-align: center; min-width: 65px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
+              <div style="font-size: 9px; font-weight: 700; color: #9a3412; text-transform: uppercase;">Xếp loại</div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 2px; margin-top: 2px;">
+                <span id="card-rank" style="font-size: 22px; font-weight: 900; color: #D92534; line-height: 1;">A</span>
+                <span style="font-size: 12px; color: #f59e0b;">★</span>
+              </div>
+            </div>
           </div>
+
+          <!-- 3. Bảng điểm thành phần -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; text-align: center;">
+              <div style="font-size: 10px; font-weight: 600; color: #64748b;">Tư duy Logic</div>
+              <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-top: 2px;">
+                <span id="card-score-logic">-</span><span style="font-size: 10px; font-weight: 500; color: #94a3b8;">/10</span>
+              </div>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; text-align: center;">
+              <div style="font-size: 10px; font-weight: 600; color: #64748b;">Thực hành</div>
+              <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-top: 2px;">
+                <span id="card-score-practice">-</span><span style="font-size: 10px; font-weight: 500; color: #94a3b8;">/10</span>
+              </div>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; text-align: center;">
+              <div style="font-size: 10px; font-weight: 600; color: #64748b;">Chuyên cần</div>
+              <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-top: 2px;">
+                <span id="card-score-attendance">-</span><span style="font-size: 10px; font-weight: 500; color: #94a3b8;">/10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Khối 3 Nhận xét chuyên môn -->
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Điểm mạnh -->
+            <div class="feedback-box strength">
+              <div class="feedback-icon">
+                <i data-lucide="check" style="width: 14px; height: 14px; stroke-width: 3;"></i>
+              </div>
+              <div>
+                <div class="feedback-title">Điểm mạnh của con</div>
+                <p id="card-strength" class="feedback-desc"></p>
+              </div>
+            </div>
+
+            <!-- Cần cải thiện -->
+            <div class="feedback-box improve">
+              <div class="feedback-icon">
+                <i data-lucide="arrow-up-right" style="width: 14px; height: 14px; stroke-width: 3;"></i>
+              </div>
+              <div>
+                <div class="feedback-title">Cần lưu ý / Cải thiện</div>
+                <p id="card-improve" class="feedback-desc"></p>
+              </div>
+            </div>
+
+            <!-- Lời khuyên -->
+            <div class="feedback-box advice">
+              <div class="feedback-icon">
+                <i data-lucide="compass" style="width: 14px; height: 14px; stroke-width: 3;"></i>
+              </div>
+              <div>
+                <div class="feedback-title">Lời khuyên từ giáo viên</div>
+                <p id="card-advice" class="feedback-desc"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Footer: Lời động viên thương hiệu -->
+          <div style="border-top: 1px solid #f1f5f9; padding-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 13px;">🌱</span>
+              <span style="font-size: 11px; font-style: italic; color: #64748b; font-weight: 500;">"MindX luôn đồng hành cùng hành trình sáng tạo của con!"</span>
+            </div>
+            <span style="font-size: 10px; font-weight: 700; color: #D92534; letter-spacing: 0.05em;">mindx.edu.vn</span>
+          </div>
+
         </div>
-
-        <!-- 2. Học viên & Huy hiệu Rank -->
-        <div class="student-banner">
-          <div style="display: flex; align-items: center; gap: 14px;">
-            <img id="card-avatar" src="" alt="Avatar" style="width: 60px; height: 60px; border-radius: 16px; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.08);">
-            <div>
-              <div style="font-size: 10px; font-weight: 700; color: #ea580c; text-transform: uppercase; letter-spacing: 0.08em;">PHIẾU HỌC BẠ ĐỊNH KỲ</div>
-              <div id="card-name" style="font-size: 17px; font-weight: 800; color: #0f172a; margin-top: 2px; line-height: 1.2;">Bùi Sỹ Minh</div>
-              <div id="card-class" style="font-size: 12px; font-weight: 500; color: #64748b; margin-top: 2px;">Lớp: Scratch K08</div>
-            </div>
-          </div>
-
-          <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 8px 14px; text-align: center; min-width: 65px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
-            <div style="font-size: 9px; font-weight: 700; color: #9a3412; text-transform: uppercase;">Xếp loại</div>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 2px; margin-top: 2px;">
-              <span id="card-rank" style="font-size: 22px; font-weight: 900; color: #D92534; line-height: 1;">A</span>
-              <span style="font-size: 12px; color: #f59e0b;">★</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Bảng điểm thành phần -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; text-align: center;">
-            <div style="font-size: 10px; font-weight: 600; color: #64748b;">Tư duy Logic</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-top: 2px;">
-              <span id="card-score-logic">9.0</span><span style="font-size: 10px; font-weight: 500; color: #94a3b8;">/10</span>
-            </div>
-          </div>
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; text-align: center;">
-            <div style="font-size: 10px; font-weight: 600; color: #64748b;">Thực hành</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-top: 2px;">
-              <span id="card-score-practice">9.5</span><span style="font-size: 10px; font-weight: 500; color: #94a3b8;">/10</span>
-            </div>
-          </div>
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 6px; text-align: center;">
-            <div style="font-size: 10px; font-weight: 600; color: #64748b;">Chuyên cần</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-top: 2px;">
-              <span id="card-score-attendance">10</span><span style="font-size: 10px; font-weight: 500; color: #94a3b8;">/10</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Khối 3 Nhận xét chuyên môn -->
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <!-- Điểm mạnh -->
-          <div class="feedback-box strength">
-            <div class="feedback-icon">
-              <i data-lucide="check" style="width: 14px; height: 14px; stroke-width: 3;"></i>
-            </div>
-            <div>
-              <div class="feedback-title">Điểm mạnh của con</div>
-              <p id="card-strength" class="feedback-desc"></p>
-            </div>
-          </div>
-
-          <!-- Cần cải thiện -->
-          <div class="feedback-box improve">
-            <div class="feedback-icon">
-              <i data-lucide="arrow-up-right" style="width: 14px; height: 14px; stroke-width: 3;"></i>
-            </div>
-            <div>
-              <div class="feedback-title">Cần lưu ý / Cải thiện</div>
-              <p id="card-improve" class="feedback-desc"></p>
-            </div>
-          </div>
-
-          <!-- Lời khuyên -->
-          <div class="feedback-box advice">
-            <div class="feedback-icon">
-              <i data-lucide="compass" style="width: 14px; height: 14px; stroke-width: 3;"></i>
-            </div>
-            <div>
-              <div class="feedback-title">Lời khuyên từ giáo viên</div>
-              <p id="card-advice" class="feedback-desc"></p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. Footer: Lời động viên thương hiệu -->
-        <div style="border-top: 1px solid #f1f5f9; padding-top: 10px; display: flex; align-items: center; justify-content: space-between;">
-          <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 13px;">🌱</span>
-            <span style="font-size: 11px; font-style: italic; color: #64748b; font-weight: 500;">"MindX luôn đồng hành cùng hành trình sáng tạo của con!"</span>
-          </div>
-          <span style="font-size: 10px; font-weight: 700; color: #D92534; letter-spacing: 0.05em;">mindx.edu.vn</span>
-        </div>
-
       </div>
 
     </div>
 
   </div>
 
-  <!-- JavaScript module tách riêng -->
   <script type="module" src="./js/app.js"></script>
 </body>
 </html>
