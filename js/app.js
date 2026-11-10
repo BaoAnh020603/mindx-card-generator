@@ -23,7 +23,7 @@ function renderScoreInputs() {
         <input type="text" class="input-field score-name-input" data-index="${index}" value="${item.name}" placeholder="Tên tiêu chí (VD: Thực hành)" style="font-weight: 700; font-size: 13.5px; color: #090d16;">
       </div>
       <div style="display: flex; align-items: center; gap: 4px;">
-        <input type="number" step="0.5" min="0" max="5" class="input-field score-val-input" data-index="${index}" value="${item.score}" placeholder="Điểm" style="text-align: center; font-weight: 900; font-size: 15px; color: #090d16;">
+        <input type="number" step="any" min="0" max="5" class="input-field score-val-input" data-index="${index}" value="${item.score}" placeholder="Điểm" style="text-align: center; font-weight: 900; font-size: 15px; color: #090d16;">
         <span style="font-size: 14px; font-weight: 900; color: #9f1239; white-space: nowrap;">/ 5</span>
       </div>
       <div>
