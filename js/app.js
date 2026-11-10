@@ -273,13 +273,16 @@ async function exportPDF() {
     const imgData = canvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
 
+    const cardWidth = cardElement.offsetWidth || 480;
+    const cardHeight = cardElement.offsetHeight || 640;
+
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
-      format: [480, 640]
+      format: [cardWidth, cardHeight]
     });
 
-    pdf.addImage(imgData, 'PNG', 0, 0, 480, 640);
+    pdf.addImage(imgData, 'PNG', 0, 0, cardWidth, cardHeight);
 
     const safeName = (currentState.studentName || 'Hoc_Vien')
       .trim()
@@ -337,13 +340,16 @@ async function exportBundle() {
     // 3. Tải file PDF (tạo trực tiếp từ imgData của canvas, chạy tức thì)
     setTimeout(() => {
       const { jsPDF } = window.jspdf;
+      const cardWidth = cardElement.offsetWidth || 480;
+      const cardHeight = cardElement.offsetHeight || 640;
+
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'px',
-        format: [480, 640]
+        format: [cardWidth, cardHeight]
       });
 
-      pdf.addImage(imgData, 'PNG', 0, 0, 480, 640);
+      pdf.addImage(imgData, 'PNG', 0, 0, cardWidth, cardHeight);
       pdf.save(`Phieu_${safeName}_${safeEvent}.pdf`);
     }, 400);
 
