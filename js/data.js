@@ -31,6 +31,7 @@ export const initialCardData = {
   studentName: "",
   classCode: "",
   avatarUrl: DEFAULT_AVATAR_PLACEHOLDER,
+  totalScore: "",
   rank: "",
   scores: [
     { name: "Điểm năng lực", score: "5" },

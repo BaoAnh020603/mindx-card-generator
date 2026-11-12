@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderScoreInputs();
+  autoCalculateTotalScore();
   attachEventListeners();
 });
 
@@ -50,7 +51,11 @@ function renderScoreInputs() {
     input.addEventListener('input', (e) => {
       const idx = e.target.dataset.index;
       currentState.scores[idx].score = e.target.value;
-      if (isGenerated) renderCardScores();
+      autoCalculateTotalScore();
+      if (isGenerated) {
+        renderCardScores();
+        renderTotalScoreAndRank();
+      }
     });
   });
 
@@ -59,9 +64,39 @@ function renderScoreInputs() {
       const idx = e.currentTarget.dataset.index;
       currentState.scores.splice(idx, 1);
       renderScoreInputs();
-      if (isGenerated) renderCardScores();
+      autoCalculateTotalScore();
+      if (isGenerated) {
+        renderCardScores();
+        renderTotalScoreAndRank();
+      }
     });
   });
+}
+
+// Tự động tính điểm trung bình nếu người dùng chưa gõ đè
+function autoCalculateTotalScore(force = false) {
+  const totalInput = document.getElementById('input-total-score');
+  if (!totalInput) return;
+
+  // Nếu người dùng đã tự nhập tay thì không ghi đè trừ khi force
+  if (!force && totalInput.dataset.manual === 'true') {
+    currentState.totalScore = totalInput.value;
+    return;
+  }
+
+  const validScores = currentState.scores
+    .map(s => parseFloat(s.score))
+    .filter(n => !isNaN(n));
+
+  if (validScores.length > 0) {
+    const avg = validScores.reduce((a, b) => a + b, 0) / validScores.length;
+    const roundedAvg = Math.round(avg * 100) / 100;
+    totalInput.value = roundedAvg;
+    currentState.totalScore = roundedAvg;
+  } else {
+    totalInput.value = '';
+    currentState.totalScore = '';
+  }
 }
 
 function attachEventListeners() {
@@ -73,10 +108,29 @@ function attachEventListeners() {
       if (currentState.scores.length < 5) {
         currentState.scores.push({ name: "Tiêu chí mới", score: "5" });
         renderScoreInputs();
-        if (isGenerated) renderCardScores();
+        autoCalculateTotalScore();
+        if (isGenerated) {
+          renderCardScores();
+          renderTotalScoreAndRank();
+        }
       } else {
         alert("Thẻ hiển thị đẹp nhất với tối đa 4 - 5 tiêu chí điểm.");
       }
+    });
+  }
+
+  // Lắng nghe người dùng chỉnh tay điểm tổng
+  const totalInput = document.getElementById('input-total-score');
+  if (totalInput) {
+    totalInput.addEventListener('input', (e) => {
+      if (e.target.value.trim() !== '') {
+        totalInput.dataset.manual = 'true';
+      } else {
+        delete totalInput.dataset.manual;
+        autoCalculateTotalScore(true);
+      }
+      currentState.totalScore = e.target.value;
+      if (isGenerated) renderTotalScoreAndRank();
     });
   }
 
@@ -88,6 +142,7 @@ function attachEventListeners() {
     currentState.studentName = document.getElementById('input-name').value;
     currentState.classCode = document.getElementById('input-class').value;
     currentState.rank = document.getElementById('input-rank').value;
+    currentState.totalScore = document.getElementById('input-total-score').value || '-';
 
     currentState.strengthText = document.getElementById('input-strength').value;
     currentState.improveText = document.getElementById('input-improve').value;
@@ -196,6 +251,17 @@ function renderCardScores() {
   }).join('');
 }
 
+function renderTotalScoreAndRank() {
+  const cardTotalEl = document.getElementById('card-total-score');
+  if (cardTotalEl) {
+    cardTotalEl.innerText = (currentState.totalScore !== undefined && currentState.totalScore !== '') ? currentState.totalScore : '-';
+  }
+  const cardRankEl = document.getElementById('card-rank');
+  if (cardRankEl) {
+    cardRankEl.innerText = currentState.rank || '-';
+  }
+}
+
 function renderCardPreview() {
   document.getElementById('card-event').innerText = currentState.event || 'CHECKPOINT';
   document.getElementById('card-branch').innerText = currentState.branch || 'MindX School';
@@ -204,8 +270,7 @@ function renderCardPreview() {
   document.getElementById('card-class').innerText = `Lớp: ${currentState.classCode || '---'}`;
   document.getElementById('card-avatar').src = currentState.avatarUrl;
 
-  document.getElementById('card-rank').innerText = currentState.rank || '-';
-
+  renderTotalScoreAndRank();
   renderCardScores();
 
   document.getElementById('card-strength').innerText = currentState.strengthText;

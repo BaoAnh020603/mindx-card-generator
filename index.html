@@ -106,20 +106,29 @@
 
       <!-- Khối: Điểm số & Xếp hạng (THANG ĐIỂM 5/5) -->
       <div style="margin-bottom: 22px; background: linear-gradient(135deg, #fff1f2 0%, #fff7ed 100%); border: 2px solid #fed7aa; border-radius: 16px; padding: 18px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
           <div style="font-size: 13.5px; font-weight: 900; color: #9a3412; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
             <i data-lucide="award" style="width: 18px; height: 18px;"></i>
             Kết quả học tập (Thang 5/5)
           </div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label class="input-label" for="input-rank" style="margin: 0; color: #9a3412;">Xếp loại: *</label>
-            <select id="input-rank" style="font-weight: 900; color: #e11d48; border: 2px solid #fda4af; border-radius: 8px; padding: 5px 12px; font-size: 14px; background: #fff; outline: none; cursor: pointer;" required>
-              <option value="">-- Chọn --</option>
-              <option value="A">Hạng A 🏆</option>
-              <option value="B">Hạng B 🎯</option>
-              <option value="C">Hạng C 🚀</option>
-              <option value="D">Hạng D 🌱</option>
-            </select>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <label class="input-label" for="input-total-score" style="margin: 0; color: #9a3412; white-space: nowrap;">Điểm tổng:</label>
+              <div style="display: flex; align-items: center; gap: 3px;">
+                <input type="number" id="input-total-score" step="any" min="0" max="5" placeholder="Tự tính" style="width: 75px; text-align: center; font-weight: 900; color: #e11d48; border: 2px solid #fda4af; border-radius: 8px; padding: 4px 6px; font-size: 14px; background: #fff; outline: none;">
+                <span style="font-size: 13px; font-weight: 900; color: #9a3412;">/5</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <label class="input-label" for="input-rank" style="margin: 0; color: #9a3412; white-space: nowrap;">Xếp loại: *</label>
+              <select id="input-rank" style="font-weight: 900; color: #e11d48; border: 2px solid #fda4af; border-radius: 8px; padding: 5px 10px; font-size: 13.5px; background: #fff; outline: none; cursor: pointer;" required>
+                <option value="">-- Chọn --</option>
+                <option value="A">Hạng A 🏆</option>
+                <option value="B">Hạng B 🎯</option>
+                <option value="C">Hạng C 🚀</option>
+                <option value="D">Hạng D 🌱</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -256,11 +265,20 @@
               </div>
             </div>
 
-            <div style="background: #ffffff; border: 2.5px solid #fed7aa; border-radius: 16px; padding: 8px 16px; text-align: center; min-width: 78px; box-shadow: 0 4px 10px rgba(251, 146, 60, 0.15);">
-              <div style="font-size: 10.5px; font-weight: 900; color: #9a3412; text-transform: uppercase; letter-spacing: 0.05em;">Xếp loại</div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 3px; margin-top: 2px;">
-                <span id="card-rank" style="font-size: 26px; font-weight: 900; color: #e11d48; line-height: 1;">A</span>
-                <span style="font-size: 15px; color: #f59e0b;">⭐</span>
+            <div style="background: #ffffff; border: 2.5px solid #fed7aa; border-radius: 16px; padding: 6px 12px; text-align: center; min-width: 95px; box-shadow: 0 4px 10px rgba(251, 146, 60, 0.15); display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <div style="display: flex; flex-direction: column; align-items: center; padding-right: 8px; border-right: 1.5px dashed #fed7aa;">
+                <div style="font-size: 9.5px; font-weight: 900; color: #9a3412; text-transform: uppercase; letter-spacing: 0.04em;">Điểm tổng</div>
+                <div style="margin-top: 2px; display: flex; align-items: baseline; justify-content: center; gap: 1px;">
+                  <span id="card-total-score" style="font-size: 20px; font-weight: 900; color: #090d16; line-height: 1;">-</span>
+                  <span style="font-size: 11px; font-weight: 900; color: #e11d48;">/5</span>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <div style="font-size: 9.5px; font-weight: 900; color: #9a3412; text-transform: uppercase; letter-spacing: 0.04em;">Xếp loại</div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 2px; margin-top: 2px;">
+                  <span id="card-rank" style="font-size: 20px; font-weight: 900; color: #e11d48; line-height: 1;">A</span>
+                  <span style="font-size: 13px; color: #f59e0b;">⭐</span>
+                </div>
               </div>
             </div>
           </div>
