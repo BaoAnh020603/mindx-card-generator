@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderScoreInputs();
-  autoCalculateTotalScore();
   attachEventListeners();
 });
 
@@ -51,10 +50,8 @@ function renderScoreInputs() {
     input.addEventListener('input', (e) => {
       const idx = e.target.dataset.index;
       currentState.scores[idx].score = e.target.value;
-      autoCalculateTotalScore();
       if (isGenerated) {
         renderCardScores();
-        renderTotalScoreAndRank();
       }
     });
   });
@@ -64,39 +61,11 @@ function renderScoreInputs() {
       const idx = e.currentTarget.dataset.index;
       currentState.scores.splice(idx, 1);
       renderScoreInputs();
-      autoCalculateTotalScore();
       if (isGenerated) {
         renderCardScores();
-        renderTotalScoreAndRank();
       }
     });
   });
-}
-
-// Tự động tính điểm trung bình nếu người dùng chưa gõ đè
-function autoCalculateTotalScore(force = false) {
-  const totalInput = document.getElementById('input-total-score');
-  if (!totalInput) return;
-
-  // Nếu người dùng đã tự nhập tay thì không ghi đè trừ khi force
-  if (!force && totalInput.dataset.manual === 'true') {
-    currentState.totalScore = totalInput.value;
-    return;
-  }
-
-  const validScores = currentState.scores
-    .map(s => parseFloat(s.score))
-    .filter(n => !isNaN(n));
-
-  if (validScores.length > 0) {
-    const avg = validScores.reduce((a, b) => a + b, 0) / validScores.length;
-    const roundedAvg = Math.round(avg * 100) / 100;
-    totalInput.value = roundedAvg;
-    currentState.totalScore = roundedAvg;
-  } else {
-    totalInput.value = '';
-    currentState.totalScore = '';
-  }
 }
 
 function attachEventListeners() {
@@ -108,10 +77,8 @@ function attachEventListeners() {
       if (currentState.scores.length < 5) {
         currentState.scores.push({ name: "Tiêu chí mới", score: "5" });
         renderScoreInputs();
-        autoCalculateTotalScore();
         if (isGenerated) {
           renderCardScores();
-          renderTotalScoreAndRank();
         }
       } else {
         alert("Thẻ hiển thị đẹp nhất với tối đa 4 - 5 tiêu chí điểm.");
@@ -119,16 +86,10 @@ function attachEventListeners() {
     });
   }
 
-  // Lắng nghe người dùng chỉnh tay điểm tổng
+  // Lắng nghe người dùng tự do nhập điểm tổng (bất kỳ số lẻ nào, tối đa 5)
   const totalInput = document.getElementById('input-total-score');
   if (totalInput) {
     totalInput.addEventListener('input', (e) => {
-      if (e.target.value.trim() !== '') {
-        totalInput.dataset.manual = 'true';
-      } else {
-        delete totalInput.dataset.manual;
-        autoCalculateTotalScore(true);
-      }
       currentState.totalScore = e.target.value;
       if (isGenerated) renderTotalScoreAndRank();
     });
